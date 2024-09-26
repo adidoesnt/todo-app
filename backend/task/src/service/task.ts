@@ -1,6 +1,10 @@
 import { TaskSchema } from 'models/task';
 import { TaskRepository } from 'repository';
 
+export const findAllTasks = () => {
+    return TaskRepository.findTasks();
+};
+
 export const createTask = (task: TaskSchema) => {
     return TaskRepository.createTask(task);
 };

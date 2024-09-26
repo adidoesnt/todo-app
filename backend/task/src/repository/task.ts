@@ -2,8 +2,8 @@ import { Task, TaskSchema } from 'models/task';
 
 export type FindTaskAttributes = Partial<TaskSchema>;
 
-export const findTasks = (attributes: FindTaskAttributes) => {
-    return Task.find(attributes);
+export const findTasks = (attributes?: FindTaskAttributes) => {
+    return Task.find(attributes ?? {});
 };
 
 export const findTaskById = (id: string) => {
