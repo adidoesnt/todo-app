@@ -9,7 +9,8 @@ export const tasks = new Elysia({
         .get('/health', () => '🦊 Task router is healthy!')
         .get('/', () => TaskController.findAllTasks())
         .get('/:id', ({ params: { id } }) => TaskController.findTaskById(id))
-        .post('/', ({ body }) => TaskController.createTask(body), {
+        .delete('/:id', ({ params: { id } }) => TaskController.deleteTask(id))
+        .guard({
             body: t.Object({
                 name: t.String(),
                 description: t.String(),
@@ -18,25 +19,8 @@ export const tasks = new Elysia({
                 userUUID: t.String(),
             }),
         })
-        .put(
-            '/:id',
-            ({ params: { id }, body }) => TaskController.updateTask(id, body),
-            {
-                params: t.Object({
-                    id: t.String(),
-                }),
-                body: t.Object({
-                    name: t.String(),
-                    description: t.String(),
-                    deadline: t.Date(),
-                    status: t.Enum(TaskStatus),
-                    userUUID: t.String(),
-                }),
-            },
-        )
-        .delete('/:id', ({ params: { id } }) => TaskController.deleteTask(id), {
-            params: t.Object({
-                id: t.String(),
-            }),
-        }),
+        .post('/', ({ body }) => TaskController.createTask(body))
+        .put('/:id', ({ params: { id }, body }) =>
+            TaskController.updateTask(id, body),
+        ),
 );
