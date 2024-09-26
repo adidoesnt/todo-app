@@ -1,10 +1,7 @@
-import { t, Elysia } from 'elysia';
+import { Elysia } from 'elysia';
 import { Database } from 'utils/database';
 import { Env, getEnv } from 'utils/env';
-import { swagger } from '@elysiajs/swagger';
-import { TaskController } from 'controller';
-import { TaskStatus } from 'models/task';
-import { docs, health } from 'plugins';
+import { docs, health, tasks } from 'plugins';
 
 const { PORT = 3000 } = process.env;
 
@@ -21,49 +18,7 @@ try {
     })
         .use(docs)
         .use(health)
-        .group('/tasks', (app) =>
-            app
-                .get('/health', () => '🦊 Task router is healthy!')
-                .get('/', () => TaskController.findAllTasks())
-                .get('/:id', ({ params: { id } }) =>
-                    TaskController.findTaskById(id),
-                )
-                .post('/', ({ body }) => TaskController.createTask(body), {
-                    body: t.Object({
-                        name: t.String(),
-                        description: t.String(),
-                        deadline: t.Date(),
-                        status: t.Enum(TaskStatus),
-                        userUUID: t.String(),
-                    }),
-                })
-                .put(
-                    '/:id',
-                    ({ params: { id }, body }) =>
-                        TaskController.updateTask(id, body),
-                    {
-                        params: t.Object({
-                            id: t.String(),
-                        }),
-                        body: t.Object({
-                            name: t.String(),
-                            description: t.String(),
-                            deadline: t.Date(),
-                            status: t.Enum(TaskStatus),
-                            userUUID: t.String(),
-                        }),
-                    },
-                )
-                .delete(
-                    '/:id',
-                    ({ params: { id } }) => TaskController.deleteTask(id),
-                    {
-                        params: t.Object({
-                            id: t.String(),
-                        }),
-                    },
-                ),
-        )
+        .use(tasks)
         .listen(PORT);
     const { hostname, port } = app.server ?? {};
 
