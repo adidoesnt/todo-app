@@ -3,15 +3,18 @@
   "version": "1.0.50",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts"
+    "start": "bun run src/index.ts",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
+    "@elysiajs/swagger": "^1.1.1",
     "@typegoose/typegoose": "^12.7.0",
     "elysia": "latest",
     "mongoose": "^8.6.3"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "prettier": "^3.3.3"
   },
   "module": "src/index.js"
 }
