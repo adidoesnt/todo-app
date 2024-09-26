@@ -1,1 +1,1 @@
-export * as TaskRepository from "./task";
+export * as TaskRepository from './task';

@@ -1,1 +1,1 @@
-export * as TaskService from "./task";
+export * as TaskService from './task';

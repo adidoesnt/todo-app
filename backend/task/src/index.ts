@@ -1,6 +1,7 @@
-import { Elysia } from "elysia";
-import { Database } from "utils/database";
-import { Env, getEnv } from "utils/env";
+import { Elysia } from 'elysia';
+import { Database } from 'utils/database';
+import { Env, getEnv } from 'utils/env';
+import { swagger } from '@elysiajs/swagger';
 
 const { PORT = 3000 } = process.env;
 
@@ -13,12 +14,13 @@ try {
 
 try {
     const app = new Elysia()
-        .get("/", () => "🦊 Server is healthy!")
+        .use(swagger())
+        .get('/', () => '🦊 Server is healthy!')
         .listen(PORT);
     const { hostname, port } = app.server ?? {};
 
     if (!hostname || !port) {
-        throw new Error("🦊 Error starting server.");
+        throw new Error('🦊 Error starting server.');
     }
 
     const baseUrl =

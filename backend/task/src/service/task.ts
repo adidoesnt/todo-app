@@ -1,22 +1,22 @@
-import { TaskSchema } from "models/task";
-import { TaskRepository } from "repository";
+import { TaskSchema } from 'models/task';
+import { TaskRepository } from 'repository';
 
 export const createTask = (task: TaskSchema) => {
-  return TaskRepository.createTask(task);
+    return TaskRepository.createTask(task);
 };
 
 export const findTasksByUserUUID = (userUUID: string) => {
-  return TaskRepository.findTasks({ userUUID });
+    return TaskRepository.findTasks({ userUUID });
 };
 
 export const findTaskById = (id: string) => {
-  return TaskRepository.findTaskById(id);
+    return TaskRepository.findTaskById(id);
 };
 
 export const updateTask = (id: string, task: TaskSchema) => {
-  return TaskRepository.updateTask(id, task);
+    return TaskRepository.updateTask(id, task);
 };
 
 export const deleteTask = (id: string) => {
-  return TaskRepository.deleteTask(id);
+    return TaskRepository.deleteTask(id);
 };
