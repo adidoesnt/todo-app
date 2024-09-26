@@ -3,7 +3,7 @@ import { Database } from 'utils/database';
 import { Env, getEnv } from 'utils/env';
 import { swagger } from '@elysiajs/swagger';
 import { TaskController } from 'controller';
-import { Task, TaskSchema, TaskStatus } from 'models/task';
+import { TaskStatus } from 'models/task';
 
 const { PORT = 3000 } = process.env;
 
