@@ -9,6 +9,9 @@ export enum TaskStatus {
 
 export class TaskSchema {
     @prop({ required: true, type: String })
+    declare userUUID: string;
+
+    @prop({ required: true, type: String })
     declare name: string;
 
     @prop({ required: true, type: String })
