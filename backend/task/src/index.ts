@@ -4,6 +4,7 @@ import { Env, getEnv } from 'utils/env';
 import { swagger } from '@elysiajs/swagger';
 import { TaskController } from 'controller';
 import { TaskStatus } from 'models/task';
+import { docs, health } from 'plugins';
 
 const { PORT = 3000 } = process.env;
 
@@ -15,10 +16,11 @@ try {
 }
 
 try {
-    const app = new Elysia()
-        .use(swagger())
-        .get('/', () => '🦊 Server is healthy!')
-        .get('/health', () => '🦊 Server is healthy!')
+    const app = new Elysia({
+        prefix: '/tasks',
+    })
+        .use(docs)
+        .use(health)
         .group('/tasks', (app) =>
             app
                 .get('/health', () => '🦊 Task router is healthy!')
